@@ -6,7 +6,7 @@ class player:
         self.player_health = player_health
         self.player_run = player_run
         self.player_damage = player_damage
-    def punch():
+    def punch(self, enemy_block):
         print("You punched!")
         if (enemy_block):
             print("Your attack got blocked!")
@@ -14,46 +14,48 @@ class player:
         else:
             self.player_damage = random.choice([2,3])
             print("Attack damage is " + str(self.player_damage))
-    def kick():
+    def kick(self):
         self.player_damage = random.choice([1,2])
-    def run_away():
+    def run_away(self):
         self.player_run = True
-Player = player(10, False, 0)
+guy = player(10, False, 0)
 def battle(enemy, enemy_health):
     player_health = 10
     enemy_block = False
     enemy_attack_choice = []
     player_run = False
     print("Battle Begin!")
-    print(Player.player_damage)
-    while enemy_health >0 or player_health >0:
+    print(guy.player_damage)
+    while enemy_health > 0 and player_health > 0:
         print("Your health: " + str(player_health))
         print(enemy+"'s health: "+str(enemy_health))
         player_action = input("Choose an action: \n Punch \n Kick \n Run Away \n")
         player_action = player_action.lower()
         if player_action == "run away":
             print("wow, really? ok fine, you ran away. good job.")
-            Player.run_away
+            guy.run_away
             break
         elif player_action == "punch":
-            Player.punch
-            enemy_health = enemy_health - Player.player_damage
+            guy.punch(enemy_block)
+            enemy_health = enemy_health - guy.player_damage
         elif player_action == "kick":
-            Player.kick
-            enemy_health = enemy_health - Player.player_damage
+            guy.kick()
+            enemy_health = enemy_health - guy.player_damage
         print("Enemy Turn!")
+        enemy_block = False
         enemy_attack_choice = random.choice([0,1])
         if enemy_attack_choice == 0:
             print("The "+enemy+" prepares to block!")
+            enemy_block = True
         else:
             print("The "+enemy+" attacks for 2 damage!")
             player_health=player_health-2
     print("Battle end!")
-    if player_health < 0 and enemy_health < 0:
+    if player_health <= 0 and enemy_health <= 0:
         print("Wow, you somehow managed to die at the same time as the "+enemy+ ". Neat. Program's over though, so bye!")
-    elif player_health > 0:
+    elif enemy_health <= 0 and player_health > 0:
         print("Great, you lived! Now leave, the program's over.")
-    elif player_health < 0:
+    elif player_health <= 0 and enemy_health > 0:
         print("You died! Too bad. Program's over too so you'll have to restart that.")
     else:
         print("How did you get here????")
