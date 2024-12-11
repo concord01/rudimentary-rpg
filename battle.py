@@ -48,8 +48,8 @@ def battle(enemy, enemy_health):
             print("The "+enemy+" prepares to block!")
             enemy_block = True
         else:
-            print("The "+enemy+" attacks for 2 damage!")
-            player_health=player_health-2
+            print("The "+enemy+" attacks for 3 damage!")
+            player_health=player_health-3
     print("Battle end!")
     if player_health <= 0 and enemy_health <= 0:
         print("Wow, you somehow managed to die at the same time as the "+enemy+ ". Neat. Program's over though, so bye!")
@@ -60,4 +60,4 @@ def battle(enemy, enemy_health):
     else:
         print("How did you get here????")
     
-battle("goblin", 5)
+battle("goblin", 10)
